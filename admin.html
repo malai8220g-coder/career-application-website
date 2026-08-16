@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Application Admin</title>
+<style>
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f5f7fb;color:#111827;margin:0}
+header{background:linear-gradient(135deg,#111827,#2563eb);color:#fff;padding:25px 18px}
+main{max-width:1100px;margin:20px auto;padding:0 15px}.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 5px 20px rgba(0,0,0,.08);margin-bottom:20px}
+input,button{padding:11px;border-radius:8px;border:1px solid #d1d5db}button{background:#2563eb;color:white;border:0;cursor:pointer}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap}.toolbar input{flex:1;min-width:220px}
+table{width:100%;border-collapse:collapse;margin-top:15px;font-size:14px}th,td{padding:11px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}th{background:#f9fafb}
+.badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#dbeafe;color:#1d4ed8}
+.empty{color:#6b7280;padding:20px 0}
+@media(max-width:700px){table{display:block;overflow:auto;white-space:nowrap}}
+</style>
+</head>
+<body>
+<header><h1>Career Applications Admin</h1><p>Local demo dashboard</p></header>
+<main>
+<section class="card">
+  <div class="toolbar">
+    <input id="search" placeholder="Search name, email, position or location">
+    <button onclick="exportCSV()">Export CSV</button>
+    <button onclick="clearAll()">Clear All</button>
+  </div>
+</section>
+<section class="card">
+  <div id="count"></div>
+  <div id="table"></div>
+</section>
+</main>
+<script>
+function getApps(){return JSON.parse(localStorage.getItem('careerApplications')||'[]')}
+function render(){
+ const q=document.getElementById('search').value.toLowerCase();
+ const apps=getApps().filter(a=>Object.values(a).join(' ').toLowerCase().includes(q));
+ document.getElementById('count').innerHTML='<b>'+apps.length+'</b> application(s)';
+ if(!apps.length){document.getElementById('table').innerHTML='<div class="empty">No applications found.</div>';return}
+ let html='<table><thead><tr><th>ID</th><th>Name</th><th>Mobile</th><th>Email</th><th>Location</th><th>Qualification</th><th>Experience</th><th>Position</th><th>Skills</th><th>Submitted</th></tr></thead><tbody>';
+ apps.forEach(a=>html+=`<tr><td><span class="badge">${esc(a.applicationId)}</span></td><td>${esc(a.fullName)}</td><td>${esc(a.mobile)}</td><td>${esc(a.email)}</td><td>${esc(a.location)}</td><td>${esc(a.qualification)}</td><td>${esc(a.experience)}</td><td>${esc(a.position)}</td><td>${esc(a.skills)}</td><td>${new Date(a.submittedAt).toLocaleString()}</td></tr>`);
+ html+='</tbody></table>';document.getElementById('table').innerHTML=html;
+}
+function esc(v=''){return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function exportCSV(){
+ const apps=getApps(); if(!apps.length)return alert('No applications to export.');
+ const keys=['applicationId','fullName','mobile','email','location','qualification','experience','position','skills','reason','resumeName','submittedAt'];
+ const csv=[keys.join(','),...apps.map(a=>keys.map(k=>`"${String(a[k]??'').replace(/"/g,'""')}"`).join(','))].join('\\n');
+ const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='career-applications.csv';link.click();URL.revokeObjectURL(url);
+}
+function clearAll(){if(confirm('Delete all locally stored applications?')){localStorage.removeItem('careerApplications');render()}}
+document.getElementById('search').addEventListener('input',render);render();
+</script>
+</body>
+</html>
