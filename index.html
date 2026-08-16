@@ -1,1 +1,228 @@
-index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Career Application</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #2563eb);
+      color: white;
+      padding: 45px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #111827;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 15px 0 7px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #2563eb;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .apply-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .apply-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .success {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 27px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Join Our Team</h1>
+    <p>Build your career with us</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>Career Opportunities</h2>
+
+      <p>
+        We are looking for talented and motivated people
+        to join our team. Submit your application below.
+      </p>
+    </div>
+
+    <div class="card">
+
+      <h2>Career Application</h2>
+
+      <form id="careerForm">
+
+        <label>Full Name *</label>
+        <input type="text" name="name" placeholder="Enter your full name" required>
+
+        <label>Mobile Number *</label>
+        <input type="tel" name="phone" placeholder="Enter mobile number" required>
+
+        <label>Email Address *</label>
+        <input type="email" name="email" placeholder="Enter email address" required>
+
+        <label>Location *</label>
+        <input type="text" name="location" placeholder="City / District" required>
+
+        <label>Qualification *</label>
+        <input type="text" name="qualification" placeholder="Example: 12th / Diploma / Degree" required>
+
+        <label>Experience</label>
+        <select name="experience">
+          <option value="">Select experience</option>
+          <option>Fresher</option>
+          <option>Less than 1 year</option>
+          <option>1 - 2 years</option>
+          <option>2 - 5 years</option>
+          <option>5+ years</option>
+        </select>
+
+        <label>Position Applied For *</label>
+        <select name="position" required>
+          <option value="">Select position</option>
+          <option>Sales Executive</option>
+          <option>Marketing Executive</option>
+          <option>Telecaller</option>
+          <option>Customer Support</option>
+          <option>HR Executive</option>
+          <option>Other</option>
+        </select>
+
+        <label>Skills</label>
+        <textarea name="skills" placeholder="Enter your skills"></textarea>
+
+        <label>Resume</label>
+        <input type="file" name="resume" accept=".pdf,.doc,.docx">
+
+        <button type="submit" class="apply-btn">
+          Submit Application
+        </button>
+
+        <div class="success" id="successMessage">
+          Application submitted successfully!
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 Career Application. All Rights Reserved.
+  </footer>
+
+  <script>
+    document.getElementById("careerForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      document.getElementById("successMessage").style.display = "block";
+
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
