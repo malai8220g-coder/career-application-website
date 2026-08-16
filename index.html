@@ -1,228 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Career Application</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #f5f7fb;
-      color: #222;
-    }
-
-    header {
-      background: linear-gradient(135deg, #111827, #2563eb);
-      color: white;
-      padding: 45px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    header p {
-      font-size: 16px;
-      opacity: 0.9;
-    }
-
-    .container {
-      max-width: 650px;
-      margin: 25px auto;
-      padding: 0 15px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      margin-bottom: 15px;
-      color: #111827;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 15px 0 7px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 9px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: #2563eb;
-    }
-
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .apply-btn {
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      background: #2563eb;
-      color: white;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .apply-btn:hover {
-      background: #1d4ed8;
-    }
-
-    .success {
-      display: none;
-      margin-top: 15px;
-      padding: 15px;
-      background: #dcfce7;
-      color: #166534;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #666;
-      font-size: 14px;
-    }
-
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 27px;
-      }
-
-      .card {
-        padding: 20px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Application</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f7fb;color:#222;line-height:1.5}
+header{background:linear-gradient(135deg,#111827,#2563eb);color:#fff;padding:44px 20px;text-align:center}
+header h1{font-size:32px;margin-bottom:12px}
+header p{font-size:16px;opacity:.9}
+.container{max-width:650px;margin:25px auto;padding:0 15px}
+.card{background:#fff;padding:25px;border-radius:18px;box-shadow:0 5px 25px rgba(0,0,0,.08);margin-bottom:20px}
+h2{margin-bottom:15px;color:#111827}
+label{display:block;font-weight:700;margin:15px 0 7px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:9px;font-size:15px;outline:none;background:#fff}
+input:focus,select:focus,textarea:focus{border-color:#2563eb}
+textarea{min-height:110px;resize:vertical}
+.required{color:#dc2626}
+.help{font-size:12px;color:#6b7280;margin-top:5px}
+button{width:100%;padding:14px;border:0;border-radius:10px;background:#2563eb;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-top:20px}
+button:hover{background:#1d4ed8}
+button:disabled{opacity:.6;cursor:not-allowed}
+.success,.error{display:none;padding:14px;border-radius:10px;margin-bottom:15px}
+.success{background:#dcfce7;color:#166534}
+.error{background:#fee2e2;color:#991b1b}
+.progress{height:6px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin:10px 0 20px}
+.progress span{display:block;height:100%;width:0;background:#2563eb;transition:.2s}
+.footer{text-align:center;color:#6b7280;font-size:12px;padding:20px}
+</style>
 </head>
-
 <body>
+<header>
+  <h1>Join Our Team</h1>
+  <p>Build your career with us</p>
+</header>
 
-  <header>
-    <h1>Join Our Team</h1>
-    <p>Build your career with us</p>
-  </header>
+<main class="container">
+  <section class="card">
+    <h2>Career Opportunities</h2>
+    <p>We are looking for talented and motivated people to join our team. Submit your application below.</p>
+  </section>
 
-  <div class="container">
+  <section class="card">
+    <h2>Career Application</h2>
+    <div id="success" class="success">Application submitted successfully! Your application ID is <b id="applicationId"></b>.</div>
+    <div id="error" class="error"></div>
 
-    <div class="card">
-      <h2>Career Opportunities</h2>
+    <form id="applicationForm">
+      <label>Full Name <span class="required">*</span></label>
+      <input name="fullName" required placeholder="Enter your full name">
 
-      <p>
-        We are looking for talented and motivated people
-        to join our team. Submit your application below.
-      </p>
-    </div>
+      <label>Mobile Number <span class="required">*</span></label>
+      <input name="mobile" required type="tel" inputmode="numeric" pattern="[0-9+\-\s]{8,15}" placeholder="Enter mobile number">
 
-    <div class="card">
+      <label>Email Address <span class="required">*</span></label>
+      <input name="email" required type="email" placeholder="Enter email address">
 
-      <h2>Career Application</h2>
+      <label>Location <span class="required">*</span></label>
+      <input name="location" required placeholder="City / District">
 
-      <form id="careerForm">
+      <label>Qualification <span class="required">*</span></label>
+      <input name="qualification" required placeholder="Example: 12th / Diploma / Degree">
 
-        <label>Full Name *</label>
-        <input type="text" name="name" placeholder="Enter your full name" required>
+      <label>Experience</label>
+      <select name="experience">
+        <option value="">Select experience</option>
+        <option>Fresher</option>
+        <option>Less than 1 year</option>
+        <option>1–2 years</option>
+        <option>2–5 years</option>
+        <option>5+ years</option>
+      </select>
 
-        <label>Mobile Number *</label>
-        <input type="tel" name="phone" placeholder="Enter mobile number" required>
+      <label>Position Applied For <span class="required">*</span></label>
+      <input name="position" required placeholder="Example: Sales Executive">
 
-        <label>Email Address *</label>
-        <input type="email" name="email" placeholder="Enter email address" required>
+      <label>Skills</label>
+      <input name="skills" placeholder="Example: Communication, MS Office, Sales">
 
-        <label>Location *</label>
-        <input type="text" name="location" placeholder="City / District" required>
+      <label>Why should we hire you?</label>
+      <textarea name="reason" placeholder="Tell us briefly about yourself"></textarea>
 
-        <label>Qualification *</label>
-        <input type="text" name="qualification" placeholder="Example: 12th / Diploma / Degree" required>
+      <label>Resume <span class="required">*</span></label>
+      <input id="resume" name="resume" required type="file" accept=".pdf,.doc,.docx">
+      <div class="help">PDF, DOC or DOCX — maximum 5 MB</div>
 
-        <label>Experience</label>
-        <select name="experience">
-          <option value="">Select experience</option>
-          <option>Fresher</option>
-          <option>Less than 1 year</option>
-          <option>1 - 2 years</option>
-          <option>2 - 5 years</option>
-          <option>5+ years</option>
-        </select>
+      <div class="progress"><span id="progress"></span></div>
+      <button id="submitBtn" type="submit">Submit Application</button>
+    </form>
+  </section>
 
-        <label>Position Applied For *</label>
-        <select name="position" required>
-          <option value="">Select position</option>
-          <option>Admission Management</option>
-          <option>Digital Content Creator</option>
-          <option>Distribution Management</option>
-          <option>Assistant Team Leader</option>
-          <option>Internship</option>
-          <option>Other</option>
-        </select>
+  <div class="footer">Thank you for your interest in joining our team.</div>
+</main>
 
-        <label>Skills</label>
-        <textarea name="skills" placeholder="Enter your skills"></textarea>
+<script>
+const form = document.getElementById('applicationForm');
+const resume = document.getElementById('resume');
+const progress = document.getElementById('progress');
+const success = document.getElementById('success');
+const errorBox = document.getElementById('error');
+const submitBtn = document.getElementById('submitBtn');
 
-        <label>Resume</label>
-        <input type="file" name="resume" accept=".pdf,.doc,.docx">
+resume.addEventListener('change', () => {
+  const file = resume.files[0];
+  if (!file) return;
+  const allowed = ['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+  if (file.size > 5 * 1024 * 1024) {
+    resume.value = '';
+    showError('Resume must be 5 MB or smaller.');
+    return;
+  }
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (!['pdf','doc','docx'].includes(ext)) {
+    resume.value = '';
+    showError('Only PDF, DOC and DOCX files are allowed.');
+  }
+});
 
-        <button type="submit" class="apply-btn">
-          Submit Application
-        </button>
+function showError(message){
+  errorBox.textContent = message;
+  errorBox.style.display = 'block';
+  success.style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-        <div class="success" id="successMessage">
-          Application submitted successfully!
-        </div>
+function makeId(){
+  return 'APP-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(1000 + Math.random()*9000);
+}
 
-      </form>
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorBox.style.display = 'none';
+  success.style.display = 'none';
 
-    </div>
+  const file = resume.files[0];
+  if (!file) return showError('Please upload your resume.');
+  if (file.size > 5 * 1024 * 1024) return showError('Resume must be 5 MB or smaller.');
 
-  </div>
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+  progress.style.width = '30%';
 
-  <footer>
-    © 2026 Career Application. All Rights Reserved.
-  </footer>
+  const data = Object.fromEntries(new FormData(form).entries());
+  delete data.resume;
+  data.applicationId = makeId();
+  data.submittedAt = new Date().toISOString();
+  data.resumeName = file.name;
 
-  <script>
-    document.getElementById("careerForm").addEventListener("submit", function(event) {
-      event.preventDefault();
+  /*
+    GitHub Pages is static, so this demo stores applications in this browser.
+    For real multi-user submissions, set API_URL to your deployed backend endpoint.
+  */
+  const API_URL = '';
 
-      document.getElementById("successMessage").style.display = "block";
+  try {
+    if (API_URL) {
+      const body = new FormData();
+      Object.entries(data).forEach(([k,v]) => body.append(k,v));
+      body.append('resume', file);
+      const response = await fetch(API_URL, {method:'POST', body});
+      if (!response.ok) throw new Error('Server rejected the application.');
+    } else {
+      const saved = JSON.parse(localStorage.getItem('careerApplications') || '[]');
+      saved.push(data);
+      localStorage.setItem('careerApplications', JSON.stringify(saved));
+    }
 
-      this.reset();
-    });
-  </script>
-
+    progress.style.width = '100%';
+    document.getElementById('applicationId').textContent = data.applicationId;
+    success.style.display = 'block';
+    form.reset();
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch(err) {
+    showError(err.message || 'Something went wrong. Please try again.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Application';
+    setTimeout(()=>progress.style.width='0', 1200);
+  }
+});
+</script>
 </body>
 </html>
